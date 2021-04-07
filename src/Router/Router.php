@@ -56,7 +56,20 @@ class Router
             $body = renderView("layout/page.php", $data);
             sendResponse($body);
             return;
+        } else if ($method === "GET" && $path === "/dice") {
+
+            $callable = new \elcl20\Dice\Game();
+            $callable->playGame();
+
+            return;
+        } else if ($method === "POST" && $path === "/roll") {
+
+            $callable = new \elcl20\Dice\Game();
+            $callable->playGame();
+
+            return;
         }
+
 
         $data = [
             "header" => "404",

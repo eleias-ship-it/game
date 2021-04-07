@@ -15,3 +15,124 @@ footer {
     min-height: 4em;
     text-align: center;
 }
+
+
+/* ----------------------------------------------------------- */
+/* ----------------------------------------------------------- */
+/* -----------------------    Dices    ----------------------- */
+/* ----------------------------------------------------------- */
+/* ----------------------------------------------------------- */
+
+.dices {
+    display: grid;
+}
+
+.dice {
+    position: relative;
+    border: 2px solid #333;
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+}
+
+.innergrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    align-items: center; /*vertikalt*/
+    justify-items: center; /*horisontellt*/
+}
+
+.one {
+    grid-column: 2/2;
+}
+
+.two {
+    grid-column: 2/2;
+}
+
+.three {
+    grid-column: 2/2;
+}
+
+.four {
+    grid-column: 2/2;
+}
+
+.five {
+    grid-column: 2/2;
+}
+
+.six {
+    grid-column: 2/2;
+}
+
+.dotone {
+    height: 15px;
+    width: 15px;
+    border-radius: 15px;
+    background-color: black;
+    align-self: auto;
+    grid-column: 2/2;
+    grid-row: 2/2;
+}
+
+.dottwo1 {
+    height: 15px;
+    width: 15px;
+    border-radius: 15px;
+    background-color: black;
+    align-self: auto;
+    grid-column: 1/1;
+    grid-row: 3/3;
+}
+
+.dottwo2 {
+    height: 15px;
+    width: 15px;
+    border-radius: 15px;
+    background-color: black;
+    align-self: auto;
+    grid-column: 3/3;
+    grid-row: 1/1;
+}
+
+.dotfour1 {
+    height: 15px;
+    width: 15px;
+    border-radius: 15px;
+    background-color: black;
+    align-self: auto;
+    grid-column: 1/1;
+    grid-row: 1/1;
+}
+
+.dotfour2 {
+    height: 15px;
+    width: 15px;
+    border-radius: 15px;
+    background-color: black;
+    align-self: auto;
+    grid-column: 3/3;
+    grid-row: 3/3;
+}
+
+.dotsix1 {
+    height: 15px;
+    width: 15px;
+    border-radius: 15px;
+    background-color: black;
+    align-self: auto;
+    grid-column: 2/2;
+    grid-row: 1/1;
+}
+
+.dotsix2 {
+    height: 15px;
+    width: 15px;
+    border-radius: 15px;
+    background-color: black;
+    align-self: auto;
+    grid-column: 2/2;
+    grid-row: 3/3;
+}
