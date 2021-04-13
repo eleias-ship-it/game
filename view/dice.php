@@ -6,32 +6,59 @@
 
 declare(strict_types=1);
 
+?><div class="container">
+    <div class="header-game">
+        <h1><?= $header ?></h1>
 
-?><h1><?= $header ?></h1>
+        <p><?= $message ?></p>
+    </div>
 
-<p><?= $message ?></p>
-
-<p>DICE !</p>
-
-<p><?= $dieLastRoll ?></p>
-
-<p>DiceHand: </p>
-
-<p><?= $diceHandRoll ?></p>
-
-<p>DiceHand 1: </p>
-
-<p><?= $diceHandRoll1 ?></p>
+    <div class="score">
+        <p>Human Score: <?= $_SESSION["scoreHuman"] ?></p>
+        <p>Computer Score: <?= $_SESSION["scoreComputer"] ?></p>
+    </div>
 
 
-<p><?= $lastRollSide ?></p>
+    <p>Current Score: </p>
 
-<form class="" action="/roll" method="post">
-    <input type="hidden" name="" value="1">
-    <button type="button" name="button">Roll one dice</button>
-</form>
+    <p><?= $sum ?></p>
 
-<form class="" action="/roll" method="post">
-    <input type="hidden" name="" value="2">
-    <button type="button" name="button">Roll two dices</button>
-</form>
+    <div class="<?= $buttonArea?>">
+        <form class="<?= $buttonArea ?>" action="roll1" method="POST">
+            <input type="hidden" name="roll" value="1">
+            <button type="submit" name="button">Roll one dice</button>
+        </form>
+
+        <form class="<?= $buttonArea ?>" action="roll2" method="POST">
+            <input type="hidden" name="roll" value="2">
+            <button type="submit" name="button">Roll two dices</button>
+        </form>
+
+        <form class="<?= $buttonArea ?>" action="stay" method="POST">
+            <input type="hidden" name="roll" value="2">
+            <button type="submit" name="button">stay</button>
+        </form>
+    </div>
+
+    <div class="<?= $diceArea ?>">
+        <p><?= $lastRollSide ?></p>
+        <p><?= $HandGraph0 ?></p>
+        <p><?= $HandGraph1 ?></p>
+
+    </div>
+
+    <p>Computer rolled: </p>
+    <p><?= $computerSum?></p>
+
+    <div class="<?= $endScreen ?>">
+        <p><?= $gameOver ?></p>
+    </div>
+
+    <div class="<?= $playButton ?>">
+        <form class="<?= $playButton ?>" action="replay" method="POST">
+            <input type="hidden" name="roll" value="2">
+            <button type="submit" name="button">Replay</button>
+        </form>
+    </div>
+
+</div>

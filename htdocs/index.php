@@ -33,4 +33,5 @@ require INSTALL_PATH . "/config/bootstrap.php";
 $method = $_SERVER["REQUEST_METHOD"];
 $path   = getRoutePath();
 
+
 Router::dispatch($method, $path);

@@ -136,3 +136,56 @@ footer {
     grid-column: 2/2;
     grid-row: 3/3;
 }
+
+.dice-area {
+    display: flex;
+    gap: 1em;
+    margin: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.button-area {
+    display: flex;
+    padding: 1em;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    min-height: 38em;
+    text-align: center;
+    margin: auto;
+}
+
+.header-game {
+    text-align: center;
+    margin: auto;
+}
+
+.winner {
+    color: black;
+    border: 2px solid #00ff0c;
+}
+
+.loser {
+    color: black;
+    border: 2px solid red;
+}
+
+.end-screen {
+    border: 2px solid red;
+}
+
+.score {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 12em;
+    margin-left: auto;
+}
