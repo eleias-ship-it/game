@@ -6,25 +6,25 @@ namespace Mos\Controller;
 
 use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Http\Message\ResponseInterface;
+use elcl20\Dice\Game;
 
 use function Mos\Functions\renderView;
 
 /**
  * Controller for the index route.
  */
-class Index
+class Dice
 {
     public function __invoke(): ResponseInterface
     {
         $psr17Factory = new Psr17Factory();
 
-        $data = [
-            "header" => "Index page",
-            "message" => "Hello, this is the index page, rendered as a layout.",
-        ];
+        $_SESSION["game"] = new Game();
+        $_SESSION["game"]->initScore();
+        $_SESSION["game"]->initGame();
 
 
-        $body = renderView("layout/page.php", $data);
+        $body = renderView("layout/dice.php", $_SESSION["game"]->gameBody());
 
         return $psr17Factory
             ->createResponse(200)

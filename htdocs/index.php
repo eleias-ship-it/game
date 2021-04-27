@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Bootstrap the framework and handle the request and send the response.
  */
@@ -44,6 +43,9 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $rout
 // the response.
 $response = null;
 $routeInfo = $dispatcher->dispatch($method, $path);
+
+
+
 switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::NOT_FOUND:
         $response = (new Error())->do404();
@@ -55,8 +57,10 @@ switch ($routeInfo[0]) {
         break;
 
     case FastRoute\Dispatcher::FOUND:
+
         $handler = $routeInfo[1];
         $vars = $routeInfo[2];
+
 
         if (is_callable($handler)) {
             if (is_array($handler)
@@ -73,11 +77,14 @@ switch ($routeInfo[0]) {
             $rc = new \ReflectionClass($handler);
             if ($rc->hasMethod("__invoke")) {
                 $obj = new $handler;
+
                 $response = $obj();
             }
         }
         break;
 }
+
+echo "before sending response";
 
 // Send the reponse
 if (is_null($response)) {

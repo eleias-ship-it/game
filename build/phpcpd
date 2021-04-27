@@ -1,5 +1,11 @@
 phpcpd 6.0.3 by Sebastian Bergmann.
 
-No clones found.
+Found 1 clones with 63 duplicated lines in 2 files:
 
-Time: 00:00.004, Memory: 2.00 MB
+  - C:\Users\elias\dbwebb-kurser\mvc\me\game\src\Dice\DiceHand.php:19-82 (63 lines)
+    C:\Users\elias\dbwebb-kurser\mvc\me\game\src\Yatzy\DiceHand.php:19-82
+
+4.75% duplicated lines out of 1325 total lines of code.
+Average size of duplication is 63 lines, largest clone has 63 of lines
+
+Time: 00:00.006, Memory: 2.00 MB
