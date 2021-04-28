@@ -149,8 +149,9 @@ footer {
     display: flex;
     gap: 1em;
     margin: auto;
-    align-items: center;
+    align-items:baseline;
     justify-content: center;
+    flex-direction: column;
 }
 
 .hidden {
@@ -219,5 +220,51 @@ footer {
     color: white;
     border: 3px solid red;
     border-radius: 3px;
+}
 
+/* TAbles */
+td {
+    background-color: #fff;
+}
+
+.table, .balance {
+    margin: auto;
+    padding: 1em;
+}
+
+table th {
+    padding: 0.5em;
+}
+
+.table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table td, .table th {
+    border: 1px solid #ddd;
+    padding: 4px;
+}
+
+.table tr:nth-child(even) {
+    background-color: #00adaa;
+}
+
+.table tr:hover {
+    background-color: #00adaa;
+}
+
+.table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-right: 1px;
+  padding-left: 1px;
+  text-align: center;
+  background-color: #00adaa;
+  color: black;
+}
+
+.table-container {
+    width: 60%;
 }

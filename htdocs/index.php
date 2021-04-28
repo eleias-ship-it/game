@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Bootstrap the framework and handle the request and send the response.
  */
@@ -35,6 +36,7 @@ $method = $_SERVER["REQUEST_METHOD"];
 $path   = getRoutePath();
 
 // Load the routes from the configuration file
+$router = null;
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $router) {
     require INSTALL_PATH . "/config/router.php";
 });
@@ -43,9 +45,6 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $rout
 // the response.
 $response = null;
 $routeInfo = $dispatcher->dispatch($method, $path);
-
-
-
 switch ($routeInfo[0]) {
     case FastRoute\Dispatcher::NOT_FOUND:
         $response = (new Error())->do404();
@@ -57,34 +56,28 @@ switch ($routeInfo[0]) {
         break;
 
     case FastRoute\Dispatcher::FOUND:
-
         $handler = $routeInfo[1];
         $vars = $routeInfo[2];
 
-
-        if (is_callable($handler)) {
-            if (is_array($handler)
-                && is_string($handler[0])
-                && class_exists($handler[0])
-            ) {
-                $obj = new $handler[0]();
-                $action = $handler[1];
-                $response = $obj->$action();
-            } else {
-                $response = call_user_func_array($handler, $vars);
-            }
+        if (is_array($handler)
+            && is_string($handler[0])
+            && class_exists($handler[0])
+            && method_exists($handler[0], $handler[1])
+        ) {
+            $response = (new $handler[0]())->{$handler[1]}(...array_values($vars));
+        } else if (is_callable($handler)) {
+            $response = call_user_func_array($handler, $vars);
         } else if (is_string($handler) && class_exists($handler)) {
             $rc = new \ReflectionClass($handler);
             if ($rc->hasMethod("__invoke")) {
-                $obj = new $handler;
-
-                $response = $obj();
+                $response = (new $handler)(...array_values($vars));
             }
         }
         break;
 }
 
-echo "before sending response";
+// echo "before sending response";
+// var_dump($response);
 
 // Send the reponse
 if (is_null($response)) {

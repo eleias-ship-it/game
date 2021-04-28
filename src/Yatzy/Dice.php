@@ -4,19 +4,21 @@ declare(strict_types=1);
 
 namespace elcl20\Yatzy;
 
-// use function Mos\Functions\{
-//     destroySession,
-//     redirectTo,
-//     renderView,
-//     renderTwigView,
-//     sendResponse,
-//     url
-// };
+/**
+ *
+ */
+interface DiceInterface
+{
+    public function roll(): ?int;
+    public function getLastRoll(): ?int;
+    public function asString(): string;
+}
+
 
 /**
  * Class Dice.
  */
-class Dice
+class Dice implements DiceInterface
 {
     const FACES = 6;
 
@@ -32,5 +34,10 @@ class Dice
     public function getLastRoll(): ?int
     {
         return $this->roll;
+    }
+
+    public function asString(): string
+    {
+        return (string) $this->roll;
     }
 }

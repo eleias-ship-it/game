@@ -18,13 +18,17 @@ class YatzyPlay
     public function __invoke(): ResponseInterface
     {
         $psr17Factory = new Psr17Factory();
-        
 
-        $data = [
-            "header" => "Yatzy page",
-            "message" => "Hello, this is the Yatzy page, rendered as a Index."
-        ];
+        // isset($_SESSION["yatzy"]) ? $_SESSION["yatzy"]->throw() : $_SESSION["yatzy"] = new Game($_POST["players"], $_POST["bots"]);
 
+        if (isset($_SESSION["yatzy"]) == 1) {
+            $_SESSION["yatzy"]->throw();
+        } else {
+            $_SESSION["yatzy"] = new Game($_POST["players"], $_POST["bots"]);
+        }
+
+
+        $data = $_SESSION["yatzy"]->getRenderData();
 
         $body = renderView("layout/yatzyplay.php", $data);
 

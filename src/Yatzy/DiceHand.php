@@ -4,14 +4,7 @@ declare(strict_types=1);
 
 namespace elcl20\Yatzy;
 
-// use function Mos\Functions\{
-//     destroySession,
-//     redirectTo,
-//     renderView,
-//     renderTwigView,
-//     sendResponse,
-//     url
-// };
+use elcl20\Yatzy\Dice;
 
 /**
  * Class DiceHand.
@@ -20,24 +13,32 @@ class DiceHand
 {
     private array $dices;
     private int $sum;
-    const DICES = 5;
+    private string $DiceHandId;
     private int $nrDices;
 
-    public function __construct(int $nmr = 1)
+    public function __construct($diceId, $nrDices = null)
     {
-        $this->nrDices = $nmr;
-        $this->sum = 0;
+        $this->DiceHandId = $diceId;
+        $this->nrDices = $nrDices;
 
-        for ($i = 0; $i <= $this->nrDices; $i++) {
-            $this->dices[$i] = new Dice();
+        if ($nrDices > 0) {
+            for ($i = 0; $i < $nrDices; $i++) {
+                $this->dices[$i] = new Dice();
+            }
         }
     }
 
     public function roll(): void
     {
-
         for ($i = 0; $i <= $this->nrDices; $i++) {
-            $this->sum += $this->dices[$i]->roll();
+            $this->dices->roll();
+        }
+    }
+
+    public function addDice($dices): void
+    {
+        for ($i = 0; $i < $dices; $i++) {
+            $this->dices[$i] = new Dice();
         }
     }
 
@@ -73,11 +74,5 @@ class DiceHand
             $sum += $this->dices[$i]->getLastRoll();
         }
         return $sum;
-    }
-
-    public function rollOne(): void
-    {
-        $this->dices[count($this->dices)] = new Dice();
-        $this->dices[count($this->dices) - 1]->roll();
     }
 }

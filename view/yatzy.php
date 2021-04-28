@@ -16,10 +16,10 @@ declare(strict_types=1);
     <div class="">
         <form class="form-yatzy" action="startYatzy" method="POST">
             <label for="players">Number of human players</label>
-            <input type="text" name="players" value="1">
+            <input type="number" name="players" value="1">
 
             <label for="bots">Number of bots</label>
-            <input type="text" name="bots" value="">
+            <input type="number" name="bots" value="">
             <button class="button" type="submit" name="button">Play</button>
         </form>
     </div>

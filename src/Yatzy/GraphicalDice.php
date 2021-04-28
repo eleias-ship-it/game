@@ -78,8 +78,20 @@ class GraphicalDice extends Dice
         EOT
     ];
 
-    public function getSide($index): ?string
+    public function roll(): ?int
     {
-        return $this->sides[$index];
+        $this->roll = rand(1, self::FACES);
+
+        return $this->roll;
+    }
+
+    public function getLastRoll(): ?int
+    {
+        return $this->roll;
+    }
+
+    public function asString(): str
+    {
+        return $this->sides[$this->getLastRoll() + 1];
     }
 }

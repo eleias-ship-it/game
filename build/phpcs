@@ -1,0 +1,21 @@
+
+FILE: C:\Users\elias\dbwebb-kurser\mvc\me\game\src\Yatzy\Dice.php
+----------------------------------------------------------------------
+FOUND 1 ERROR AFFECTING 1 LINE
+----------------------------------------------------------------------
+ 21 | ERROR | Each interface must be in a file by itself
+----------------------------------------------------------------------
+
+
+FILE: C:\Users\elias\dbwebb-kurser\mvc\me\game\src\Yatzy\Game.php
+-----------------------------------------------------------------------------------------------------------------------
+FOUND 2 ERRORS AFFECTING 2 LINES
+-----------------------------------------------------------------------------------------------------------------------
+ 60 | ERROR | [x] Whitespace found at end of line
+ 61 | ERROR | [x] Function closing brace must go on the next line following the body; found 1 blank lines before brace
+-----------------------------------------------------------------------------------------------------------------------
+PHPCBF CAN FIX THE 2 MARKED SNIFF VIOLATIONS AUTOMATICALLY
+-----------------------------------------------------------------------------------------------------------------------
+
+Time: 899ms; Memory: 8MB
+
