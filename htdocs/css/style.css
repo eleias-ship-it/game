@@ -30,8 +30,8 @@ footer {
 .dice {
     position: relative;
     border: 2px solid #333;
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     border-radius: 8px;
 }
 
@@ -267,4 +267,21 @@ table th {
 
 .table-container {
     width: 60%;
+}
+
+.graph-dices {
+    display: flex;
+    gap: 1em;
+    flex-direction: row;
+}
+
+.selected {
+    border: 2px solid red;
+    border-radius: 10px;
+}
+
+.dice-button {
+    background-color: white;
+    border: none;
+    padding: 0;
 }

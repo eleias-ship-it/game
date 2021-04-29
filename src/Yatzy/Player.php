@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace elcl20\Yatzy;
 
 use elcl20\Yatzy\DiceHand;
+use elcl20\Yatzy\Dice;
+use elcl20\Yatzy\GraphicalDice;
 
 /**
  * Class Dice.
@@ -33,7 +35,8 @@ class Player
 
     private array $settings = [
         "type" => "",
-        "nrDices" => 5
+        "nrDices" => 5,
+        "savedDice" => []
     ];
 
     private Dicehand $diceHand;
@@ -41,14 +44,23 @@ class Player
     public function __construct(string $type, string $name)
     {
         $type == "human" ? $this->settings["type"] = $type : $this->settings["type"] = $type;
-
         $this->name = $name;
-        $this->diceHand = new DiceHand($this->name, $this->settings["nrDices"]);
+
+        $this->diceHand = new DiceHand();
+
+        for ($i=0; $i < $this->settings["nrDices"]; $i++) {
+            $this->diceHand->addDice(new GraphicalDice());
+        }
     }
 
     public function getName(): string
     {
         return $this->name;
+    }
+
+    public function getSettings(): string
+    {
+        return $this->settings;
     }
 
     public function getScore(): array
@@ -58,6 +70,23 @@ class Player
 
     public function roll(): void
     {
-        $diceHand->roll();
+        $this->diceHand->roll();
+    }
+
+    public function getLastRoll(): array
+    {
+        return $this->diceHand->getLastRollArray();
+    }
+    public function getLastRollString(): array
+    {
+        return $this->diceHand->getLastRollArrayString();
+    }
+
+    public function clickDice($index): void
+    {
+        // var_dump($index);
+        // array_push($this->settings["savedDice"], (integer)($index));
+        $this->diceHand->selectDiceGraph($index);
+        // var_dump($this->settings);
     }
 }

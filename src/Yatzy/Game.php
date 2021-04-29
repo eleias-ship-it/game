@@ -24,6 +24,7 @@ class Game
     private array $players;
     private int $currentPlayer;
     private array $data;
+    private int $throwsThisRound = 0;
 
     public function __construct(string $players, string $bots)
     {
@@ -42,7 +43,6 @@ class Game
             "message" => "Hello, this is the Yatzyplay page.",
             "players" => $this->getPlayers()
         ];
-        // echo "done with construct";
     }
 
     public function getPlayers(): array
@@ -53,6 +53,7 @@ class Game
     public function newRound(): void
     {
         $this->currentplayer = 0;
+        $this->throwsThisRound = 0;
     }
 
     public function nextPlayer(): void
@@ -68,13 +69,35 @@ class Game
     public function throw(): void
     {
         $currentPlayer = $this->players[$this->currentPlayer];
-        $currentPlayer->roll();
+
+        if ($this->throwsThisRound < 1) {
+            $currentPlayer->roll();
+        } elseif ($this->throwsThisRound < 2) {
+
+        } else {
+            echo "choose stuff";
+        }
+    }
+
+    public function save(): void
+    {
+        $this->players[$this->currentPlayer]->clickDice($_POST["dice"]);
     }
 
     public function getRenderData(): array
     {
         $data = $this->data;
         $data["gameData"] = $this;
+        $data["lastThrow"] = $this->players[$this->currentPlayer]->getLastRoll();
+        $data["lastThrowGraphical"] = $this->players[$this->currentPlayer]->getLastRollString();
         return $data;
+    }
+
+    public function getPlayerData(): array
+    {
+        $playerData = [];
+        foreach ($this->players as $key => $value) {
+            $playerData[$value->getName()] = $value->getSettings();
+        }
     }
 }

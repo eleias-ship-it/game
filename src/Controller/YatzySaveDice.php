@@ -13,19 +13,13 @@ use function Mos\Functions\renderView;
 /**
  * Controller for the YatzyPlay route.
  */
-class YatzyPlay
+class YatzySaveDice
 {
     public function __invoke(): ResponseInterface
     {
         $psr17Factory = new Psr17Factory();
 
-        // isset($_SESSION["yatzy"]) ? $_SESSION["yatzy"]->throw() : $_SESSION["yatzy"] = new Game($_POST["players"], $_POST["bots"]);
-
-        if (isset($_SESSION["yatzy"]) == 1) {
-            $_SESSION["yatzy"]->throw();
-        } else {
-            $_SESSION["yatzy"] = new Game($_POST["players"], $_POST["bots"]);
-        }
+        $_SESSION["yatzy"]->save();
 
         $data = $_SESSION["yatzy"]->getRenderData();
 

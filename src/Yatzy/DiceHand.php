@@ -11,35 +11,21 @@ use elcl20\Yatzy\Dice;
  */
 class DiceHand
 {
-    private array $dices;
+    private array $dices = [];
     private int $sum;
-    private string $DiceHandId;
-    private int $nrDices;
-
-    public function __construct($diceId, $nrDices = null)
-    {
-        $this->DiceHandId = $diceId;
-        $this->nrDices = $nrDices;
-
-        if ($nrDices > 0) {
-            for ($i = 0; $i < $nrDices; $i++) {
-                $this->dices[$i] = new Dice();
-            }
-        }
-    }
+    private int $nrDices = 0;
 
     public function roll(): void
     {
-        for ($i = 0; $i <= $this->nrDices; $i++) {
-            $this->dices->roll();
+        for ($i = 0; $i < $this->nrDices; $i++) {
+            $this->dices[$i]->roll();
         }
     }
 
-    public function addDice($dices): void
+    public function addDice($dice): void
     {
-        for ($i = 0; $i < $dices; $i++) {
-            $this->dices[$i] = new Dice();
-        }
+        $this->dices[$this->nrDices] = $dice;
+        $this->nrDices += 1;
     }
 
     public function getLastRoll(): int
@@ -55,8 +41,17 @@ class DiceHand
     public function getLastRollArray(): array
     {
         $res = [];
-        for ($i = 0; $i <= $this->nrDices; $i++) {
+        for ($i = 0; $i < $this->nrDices; $i++) {
             $res[$i] = $this->dices[$i]->getLastRoll();
+        }
+        return $res;
+    }
+
+    public function getLastRollArrayString(): array
+    {
+        $res = [];
+        for ($i = 0; $i < $this->nrDices; $i++) {
+            $res[$i] = $this->dices[$i]->asString();
         }
         return $res;
     }
@@ -74,5 +69,10 @@ class DiceHand
             $sum += $this->dices[$i]->getLastRoll();
         }
         return $sum;
+    }
+
+    public function selectDiceGraph($index): void
+    {
+        $this->dices[$index]->setSides("selected");
     }
 }

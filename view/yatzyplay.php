@@ -6,7 +6,8 @@
 
 declare(strict_types=1);
 
-var_dump($gameData);
+// var_dump($gameData);
+// var_dump($lastThrow);
 ?>
 <div class="container">
     <div class="header-game">
@@ -17,6 +18,17 @@ var_dump($gameData);
 
     <div class="dice-area">
         <p>Current Player: <?= $gameData->getCurrentPlayer() ?></p>
+
+        <div class="graph-dices">
+            <?php foreach ($lastThrowGraphical as $key => $value) { ?>
+                <form class="" action="save" method="post">
+                    <input type="hidden" name="dice" value="<?= $key ?>">
+                    <button class="dice-button" type="submit"><?=$value ?></button>
+                </form>
+            <?php } ?>
+        </div>
+
+
         <form class="" action="throw" method="post">
             <input type="hidden" name="" value="throw">
             <button class="button" type="submit" name="button">throw</button>

@@ -22,7 +22,7 @@ class Dice implements DiceInterface
 {
     const FACES = 6;
 
-    private ?int $roll = 0;
+    private ?int $roll = 1;
 
     public function roll(): ?int
     {

@@ -45,6 +45,7 @@ $router->addRoute("POST", "/replay", function () {
 $router->addRoute("GET", "/yatzy", "\Mos\Controller\Yatzy");
 $router->addRoute("POST", "/startYatzy", "\Mos\Controller\YatzyPlay");
 $router->addRoute("POST", "/throw", "\Mos\Controller\YatzyPlay");
+$router->addRoute("POST", "/save", "\Mos\Controller\YatzySaveDice");
 
 
 $router->addGroup("/session", function (RouteCollector $router) {

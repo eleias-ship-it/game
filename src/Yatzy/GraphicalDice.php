@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace elcl20\Yatzy;
+use elcl20\Yatzy\CommonTrait;
 
 use function Mos\Functions\{
     destroySession,
@@ -13,85 +14,36 @@ use function Mos\Functions\{
     url
 };
 
+
 /**
  * Class Dice.
  */
 class GraphicalDice extends Dice
 {
-    private array $sides = [
-        <<<EOT
-        <div class="dices">
-            <div class="dice one innergrid">
-                <div class="dotone"></div>
-            </div>
-        </div>
-        EOT,
-        <<<EOT
-        <div class="dices">
-            <div class="dice two innergrid">
-                <div class="dottwo1"></div>
-                <div class="dottwo2"></div>
-            </div>
-        </div>
-        EOT,
-        <<<EOT
-        <div class="dices">
-            <div class="dice three innergrid">
-                <div class="dotone"></div>
-                <div class="dottwo1"></div>
-                <div class="dottwo2"></div>
-            </div>
-        </div>
-        EOT,
-        <<<EOT
-        <div class="dices">
-            <div class="dice four innergrid">
-                <div class="dottwo1"></div>
-                <div class="dottwo2"></div>
-                <div class="dotfour1"></div>
-                <div class="dotfour2"></div>
-            </div>
-        </div>
-        EOT,
-        <<<EOT
-        <div class="dices">
-            <div class="dice five innergrid">
-                <div class="dottwo1"></div>
-                <div class="dottwo2"></div>
-                <div class="dotfour1"></div>
-                <div class="dotfour2"></div>
-                <div class="dotone"></div>
-            </div>
-        </div>
-        EOT,
-        <<<EOT
-        <div class="dices">
-            <div class="dice six innergrid">
-                <div class="dottwo1"></div>
-                <div class="dottwo2"></div>
-                <div class="dotfour1"></div>
-                <div class="dotfour2"></div>
-                <div class="dotsix1"></div>
-                <div class="dotsix2"></div>
-            </div>
-        </div>
-        EOT
-    ];
+    use CommonTrait;
+    private array $sides;
+    private $status = "";
 
-    public function roll(): ?int
+    public function __construct()
     {
-        $this->roll = rand(1, self::FACES);
-
-        return $this->roll;
+        $this->sides = $this->getGraphDiceSide("");
     }
 
-    public function getLastRoll(): ?int
+    public function asString(): string
     {
-        return $this->roll;
+        return $this->sides[$this->getLastRoll() - 1];
     }
 
-    public function asString(): str
+    public function setSides($status): void
     {
-        return $this->sides[$this->getLastRoll() + 1];
+        if ($this->status == "") {
+            $this->status = $status;
+            $this->sides = $this->getGraphDiceSide($status);
+        } elseif ($this->status == $status) {
+            $this->status = "";
+            $this->sides = $this->getGraphDiceSide("");
+        }
+
     }
+
 }
