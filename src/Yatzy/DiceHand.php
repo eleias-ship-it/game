@@ -22,6 +22,11 @@ class DiceHand
         }
     }
 
+    public function rollOne($index): void
+    {
+        $this->dices[$index]->roll();
+    }
+
     public function addDice($dice): void
     {
         $this->dices[$this->nrDices] = $dice;

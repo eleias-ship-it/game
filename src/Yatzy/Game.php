@@ -68,18 +68,35 @@ class Game
 
     public function throw(): void
     {
+        // quick fix to get the dices to be thrown->
+        $allDices = [0, 1, 2, 3, 4];
+
         $currentPlayer = $this->players[$this->currentPlayer];
 
         if ($this->throwsThisRound < 1) {
             $currentPlayer->roll();
         } elseif ($this->throwsThisRound < 2) {
+            // check saves and construct the array with dices to be throwed
+            foreach ($currentPlayer->getSettings()["savedDice"] as $value) {
+                if (in_array($value, $allDices)) {
+                    unset($allDices[$value]);
+                }
+            }
+            // throw the rest
+            foreach ($allDices as $value) {
+                $currentPlayer->rollOne($value);
+            }
+        }
+        $this->throwsThisRound += 1;
 
-        } else {
-            echo "choose stuff";
+        if ($this->throwsThisRound == 2) {
+            // remove throw button
+            // render table to be hoovered and clickabel
+            // when clicked 
         }
     }
 
-    public function save(): void
+    public function click(): void
     {
         $this->players[$this->currentPlayer]->clickDice($_POST["dice"]);
     }
@@ -88,8 +105,10 @@ class Game
     {
         $data = $this->data;
         $data["gameData"] = $this;
-        $data["lastThrow"] = $this->players[$this->currentPlayer]->getLastRoll();
+        // $data["lastThrow"] = $this->players[$this->currentPlayer]->getLastRoll();
         $data["lastThrowGraphical"] = $this->players[$this->currentPlayer]->getLastRollString();
+        $data["playerSettings"] = $this->players[$this->currentPlayer]->getSettings();
+
         return $data;
     }
 

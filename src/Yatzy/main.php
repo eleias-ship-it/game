@@ -6,19 +6,15 @@ require __DIR__ . "/../../vendor/autoload.php";
 
 use elcl20\Yatzy\Dice;
 
-// class Test {
-//     private array $dice;
-//
-//
-//     public function hej(): ?int
-//     {
-//         $this->dice["hej"] = new Dice();
-//         $this->dice["hej"]->roll();
-//
-//         return $this->dice["hej"]->getLastRoll();
-//     }
-//
-// }
+$allDices = [0, 1, 2, 3, 4];
+$array1 = [1, 2];
 
-// $newDice = new Test();
-// echo $newDice->hej();
+foreach ($array1 as $key => $value) {
+    if (in_array($value, $allDices)) {
+            unset($allDices[$value]);
+    }
+}
+
+var_dump($allDices);
+// array(2) { [0]=> int(2) [1]=> int(4) }
+// array(5) { [0]=> int(1) [1]=> int(2) [2]=> int(3) [3]=> int(0) [4]=> int(4) }

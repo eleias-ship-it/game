@@ -58,7 +58,7 @@ class Player
         return $this->name;
     }
 
-    public function getSettings(): string
+    public function getSettings(): array
     {
         return $this->settings;
     }
@@ -73,6 +73,11 @@ class Player
         $this->diceHand->roll();
     }
 
+    public function rollOne($index): void
+    {
+        $this->diceHand->rollOne($index);
+    }
+
     public function getLastRoll(): array
     {
         return $this->diceHand->getLastRollArray();
@@ -82,11 +87,20 @@ class Player
         return $this->diceHand->getLastRollArrayString();
     }
 
-    public function clickDice($index): void
+    public function clickDice($index): bool
     {
-        // var_dump($index);
-        // array_push($this->settings["savedDice"], (integer)($index));
         $this->diceHand->selectDiceGraph($index);
-        // var_dump($this->settings);
+
+        foreach ($this->settings["savedDice"] as $key => $value) {
+            if ((integer) $index == $value) {
+                array_splice($this->settings["savedDice"], $key, 1);
+                return false;
+            }
+        }
+
+        array_push($this->settings["savedDice"], (integer)($index));
+
+        return true;
+
     }
 }
