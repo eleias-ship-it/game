@@ -29,7 +29,8 @@ class Game
     private array $data;
     private int $throwsThisRound = 0;
     private int $maxGameRounds = 0;
-    private int $roundCounter = 0;
+    private int $roundCounter = 59;
+    private bool $gameOver = false;
 
     public function __construct(string $players, string $bots)
     {
@@ -42,7 +43,7 @@ class Game
         }
 
         $this->currentPlayer = 0;
-        $this->$maxGameRounds = count($this->players) * 15;
+        $this->maxGameRounds = count($this->players) * 15;
 
         $this->data = [
             "header" => "Yatzy page",
@@ -58,9 +59,10 @@ class Game
 
     public function newRound(): void
     {
-        $this->roundCounter += 1;
 
-        if ($round)
+        if ($this->roundCounter == $this->maxGameRounds) {
+            $this->gameOver();
+        }
 
         foreach ($this->players as $player) {
             $player->resetSaves();
@@ -71,12 +73,18 @@ class Game
             $this->currentPlayer += 1;
         }
 
+        $this->roundCounter += 1;
         $this->throwsThisRound = 0;
     }
 
     public function nextPlayer(): void
     {
         $this->currentPlayer += 1;
+    }
+
+    public function getGameOver(): bool
+    {
+        return $this->gameOver;
     }
 
     public function getCurrentPlayer(): string
@@ -100,9 +108,7 @@ class Game
                     unset($allDices[$value]);
                 }
             }
-            // throw the rest
-            // var_dump($currentPlayer);
-            // var_dump($allDices);
+
             foreach ($allDices as $value) {
                 $currentPlayer->rollOne($value);
             }
@@ -222,5 +228,27 @@ class Game
 
         $this->data["message"] = "That choice does not give any score.";
         return 1;
+    }
+
+    public function gameOver(): void
+    {
+        $this->gameOver = true;
+        $finalScore = [];
+
+        foreach ($this->players as $player) {
+
+            $playerScore = $player->getScore();
+            $score = 0;
+
+            foreach ($playerScore as $v) {
+                $score += (integer)$v;
+            }
+
+            $finalScore[$player->getName()] = $score;
+            // var_dump($playerScore);
+        }
+
+        $this->data["finalScore"] = $finalScore;
+        $this->data["winner"] = array_search(max($finalScore), $finalScore);
     }
 }

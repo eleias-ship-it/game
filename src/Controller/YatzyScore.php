@@ -23,7 +23,16 @@ class YatzyScore
 
         $data = $_SESSION["yatzy"]->getRenderData();
 
+        if ($_SESSION["yatzy"]->getGameOver()) {
+            $body = renderView("layout/yatzygameover.php", $data);
+
+            return $psr17Factory
+                ->createResponse(200)
+                ->withBody($psr17Factory->createStream($body));
+        }
         $body = renderView("layout/yatzyplay.php", $data);
+
+
 
         return $psr17Factory
             ->createResponse(200)
