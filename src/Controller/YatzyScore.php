@@ -13,13 +13,13 @@ use function Mos\Functions\renderView;
 /**
  * Controller for the YatzyPlay route.
  */
-class YatzySaveDice
+class YatzyScore
 {
     public function __invoke(): ResponseInterface
     {
         $psr17Factory = new Psr17Factory();
 
-        $_SESSION["yatzy"]->click();
+        $_SESSION["yatzy"]->score($_POST["choice"]);
 
         $data = $_SESSION["yatzy"]->getRenderData();
 

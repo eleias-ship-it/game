@@ -48,7 +48,7 @@ class Player
 
         $this->diceHand = new DiceHand();
 
-        for ($i=0; $i < $this->settings["nrDices"]; $i++) {
+        for ($i = 0; $i < $this->settings["nrDices"]; $i++) {
             $this->diceHand->addDice(new GraphicalDice());
         }
     }
@@ -92,15 +92,30 @@ class Player
         $this->diceHand->selectDiceGraph($index);
 
         foreach ($this->settings["savedDice"] as $key => $value) {
-            if ((integer) $index == $value) {
+            if ((int) $index == $value) {
                 array_splice($this->settings["savedDice"], $key, 1);
                 return false;
             }
         }
 
-        array_push($this->settings["savedDice"], (integer)($index));
+        array_push($this->settings["savedDice"], (int)($index));
 
         return true;
+    }
 
+    public function setScore($score, $choice)
+    {
+        if ($this->score[$choice] == "") {
+            $this->score[$choice] = $score;
+            return true;
+        }
+        return false;
+    }
+
+    public function resetSaves(): void
+    {
+        $this->settings["savedDice"] = [];
+        // var_dump($this->settings["savedDice"]);
+        $this->diceHand->resetDices();
     }
 }

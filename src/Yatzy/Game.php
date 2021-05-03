@@ -8,6 +8,7 @@ use elcl20\Yatzy\Dice;
 use elcl20\Yatzy\DiceHand;
 use elcl20\Yatzy\GraphicalDice;
 use elcl20\Yatzy\Player;
+use elcl20\Yatzy\CommonTrait;
 
 use function Mos\Functions\{
     redirectTo,
@@ -21,10 +22,14 @@ use function Mos\Functions\{
  */
 class Game
 {
+    use CommonTrait;
+
     private array $players;
     private int $currentPlayer;
     private array $data;
     private int $throwsThisRound = 0;
+    private int $maxGameRounds = 0;
+    private int $roundCounter = 0;
 
     public function __construct(string $players, string $bots)
     {
@@ -37,6 +42,7 @@ class Game
         }
 
         $this->currentPlayer = 0;
+        $this->$maxGameRounds = count($this->players) * 15;
 
         $this->data = [
             "header" => "Yatzy page",
@@ -52,13 +58,25 @@ class Game
 
     public function newRound(): void
     {
-        $this->currentplayer = 0;
+        $this->roundCounter += 1;
+
+        if ($round)
+
+        foreach ($this->players as $player) {
+            $player->resetSaves();
+        }
+        if ($this->currentPlayer == count($this->players) - 1) {
+            $this->currentPlayer = 0;
+        } else {
+            $this->currentPlayer += 1;
+        }
+
         $this->throwsThisRound = 0;
     }
 
     public function nextPlayer(): void
     {
-        $this->currentplayer += 1;
+        $this->currentPlayer += 1;
     }
 
     public function getCurrentPlayer(): string
@@ -83,6 +101,8 @@ class Game
                 }
             }
             // throw the rest
+            // var_dump($currentPlayer);
+            // var_dump($allDices);
             foreach ($allDices as $value) {
                 $currentPlayer->rollOne($value);
             }
@@ -92,7 +112,6 @@ class Game
         if ($this->throwsThisRound == 2) {
             // remove throw button
             // render table to be hoovered and clickabel
-            // when clicked 
         }
     }
 
@@ -103,8 +122,10 @@ class Game
 
     public function getRenderData(): array
     {
+        // var_dump($this->currentPlayer);
         $data = $this->data;
         $data["gameData"] = $this;
+        $data["currentPlayerInt"] = $this->currentPlayer;
         // $data["lastThrow"] = $this->players[$this->currentPlayer]->getLastRoll();
         $data["lastThrowGraphical"] = $this->players[$this->currentPlayer]->getLastRollString();
         $data["playerSettings"] = $this->players[$this->currentPlayer]->getSettings();
@@ -112,11 +133,94 @@ class Game
         return $data;
     }
 
-    public function getPlayerData(): array
+    public function getPlayerData(): void
     {
         $playerData = [];
         foreach ($this->players as $key => $value) {
             $playerData[$value->getName()] = $value->getSettings();
         }
+    }
+
+    public function score($choice): int
+    {
+        // check if storeable, else message "cant store that option"
+
+        $currentRolls = $this->players[$this->currentPlayer]->getLastRoll();
+        $rollsHistogram = $this->arrayToHist($currentRolls);
+        $score = 0;
+
+        switch ($choice) {
+            case "onlyOnes":
+                $score = $this->onlyN($rollsHistogram, 1);
+                break;
+            case "onlyTwos":
+                $score = $this->onlyN($rollsHistogram, 2);
+                break;
+            case "onlyThrees":
+                $score = $this->onlyN($rollsHistogram, 3);
+                break;
+            case "onlyFours":
+                $score = $this->onlyN($rollsHistogram, 4);
+                break;
+            case "onlyFives":
+                $score = $this->onlyN($rollsHistogram, 5);
+                break;
+            case "onlySixes":
+                $score = $this->onlyN($rollsHistogram, 6);
+                break;
+            case "yatzy":
+                $score = $this->yatzy($rollsHistogram);
+                break;
+            case "Chance":
+                $score = $this->chance($rollsHistogram);
+                break;
+            case "onePair":
+                $score = $this->onePair($rollsHistogram);
+                break;
+            case "twoPair":
+                $score = $this->twoPair($rollsHistogram);
+                break;
+            case "threes":
+                $score = $this->threes($rollsHistogram);
+                break;
+            case "fourths":
+                $score = $this->fourths($rollsHistogram);
+                break;
+            case "smallLadder":
+                $score = $this->smallLadder($rollsHistogram);
+                break;
+            case "bigLadder":
+                $score = $this->bigLadder($rollsHistogram);
+                break;
+            case "fullHouse":
+                $score = $this->fullHouse($rollsHistogram);
+                break;
+            default:
+                // strike a score row.
+                if (substr($choice, 0, 4) == "pass") {
+                    $choice = explode(" ", $choice);
+                    $this->players[$this->currentPlayer]->setScore($score, $choice[1]);
+                    $this->newRound();
+                    return 1;
+                }
+
+                break;
+        }
+
+
+        // add $score to gamestats
+        if ($score == 0) {
+            // set message: cant do that
+            $this->data["message"] = "That choice does not give any score.";
+            return 0;
+        }
+
+        if ($this->players[$this->currentPlayer]->setScore($score, $choice)) {
+            $this->newRound();
+            return 1;
+        }
+
+        $this->data["message"] = "That choice does not give any score.";
+        return 1;
     }
 }

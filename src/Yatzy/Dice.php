@@ -24,6 +24,11 @@ class Dice implements DiceInterface
 
     private ?int $roll = 1;
 
+    public function reset(): void
+    {
+        $this->roll = 1;
+    }
+
     public function roll(): ?int
     {
         $this->roll = rand(1, self::FACES);

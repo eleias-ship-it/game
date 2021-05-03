@@ -3,6 +3,7 @@
 declare(strict_types=1);
 
 namespace elcl20\Yatzy;
+
 use elcl20\Yatzy\CommonTrait;
 
 use function Mos\Functions\{
@@ -14,18 +15,25 @@ use function Mos\Functions\{
     url
 };
 
-
 /**
  * Class Dice.
  */
 class GraphicalDice extends Dice
 {
     use CommonTrait;
+
     private array $sides;
     private $status = "";
 
     public function __construct()
     {
+        $this->sides = $this->getGraphDiceSide("");
+    }
+
+    public function reset(): void
+    {
+        $this->roll = 1;
+        $this->status = "";
         $this->sides = $this->getGraphDiceSide("");
     }
 
@@ -43,7 +51,5 @@ class GraphicalDice extends Dice
             $this->status = "";
             $this->sides = $this->getGraphDiceSide("");
         }
-
     }
-
 }

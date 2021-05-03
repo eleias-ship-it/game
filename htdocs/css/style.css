@@ -215,11 +215,16 @@ footer {
 }
 
 .button {
-    width: 6em;
+    width: 8em;
+    font-size: 1.3em;
     background-color: red;
     color: white;
     border: 3px solid red;
     border-radius: 3px;
+}
+
+.button:hover {
+    background-color: #ff5b5b;
 }
 
 /* TAbles */
@@ -284,4 +289,34 @@ table th {
     background-color: white;
     border: none;
     padding: 0;
+}
+
+.score-button {
+    width: 100%;
+    background-color: #ff5b5b;
+    border-radius: 4px;
+    color: white;
+    border: 2px solid #ff5b5b;
+    /* font-size: 1em; */
+}
+
+.score-button:hover {
+    background-color: red;
+    color: white;
+    border: 2px solid red;
+}
+
+.game {
+    display: flex;
+}
+
+.dice-area-yatzy {
+    display: flex;
+    gap: 5em;
+    margin: auto;
+    align-items:baseline;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
 }

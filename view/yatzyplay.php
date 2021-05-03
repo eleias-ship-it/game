@@ -7,51 +7,71 @@
 declare(strict_types=1);
 
 // var_dump($gameData);
-// var_dump($lastThrow);
+var_dump($playerSettings);
 ?>
 <div class="container">
     <div class="header-game">
         <h1><?= $header ?></h1>
 
-        <p><?= $message ?></p>
+        <!-- <p><?= $message ?></p> -->
     </div>
+    <div class="game">
+        <div class="dice-area-yatzy">
+            <p>Current Player: <?= $gameData->getCurrentPlayer() ?></p>
 
-    <div class="dice-area">
-        <p>Current Player: <?= $gameData->getCurrentPlayer() ?></p>
+            <p>Game message: <?=$message  ?></p>
 
-        <div class="graph-dices">
-            <?php foreach ($lastThrowGraphical as $key => $value) { ?>
-                <form class="" action="save" method="post">
-                    <input type="hidden" name="dice" value="<?= $key ?>">
-                    <button class="dice-button" type="submit"><?=$value ?></button>
+            <div class="graph-dices">
+                <?php foreach ($lastThrowGraphical as $key => $value) { ?>
+                    <form class="" action="save" method="post">
+                        <input type="hidden" name="dice" value="<?= $key ?>">
+                        <button class="dice-button" type="submit"><?=$value ?></button>
+                    </form>
+                <?php } ?>
+            </div>
+
+            <div class="buttons-box">
+                <form class="" action="throw" method="post">
+                    <input type="hidden" name="" value="throw">
+                    <button class="button" type="submit" name="button">throw</button>
                 </form>
-            <?php } ?>
+            </div>
         </div>
 
-
-        <form class="" action="throw" method="post">
-            <input type="hidden" name="" value="throw">
-            <button class="button" type="submit" name="button">throw</button>
-        </form>
-    </div>
-
-    <div class="table-container">
-        <table class="table">
-            <tr>
-                <th>Choices</th>
-                <?php foreach ($players as $key => $value) {?>
-                    <th><?=$value->getName(); ?></th>
-                <?php } ?>
-            </tr>
-            <?php foreach ($players[0]->getScore() as $key => $value) {?>
+        <div class="table-container">
+            <table class="table">
                 <tr>
-                    <td><?= $key ?></td>
-                    <?php foreach ($players as $k => $v) {?>
-                        <td><?=$v->getScore()[$key]; ?></td>
+                    <th>Choices</th>
+                    <th>Strike</th>
+                    <?php foreach ($players as $key => $value) {?>
+                        <th><?=$value->getName(); ?></th>
                     <?php } ?>
                 </tr>
-            <?php } ?>
+                <?php foreach ($players[$currentPlayerInt]->getScore() as $key => $value) {?>
+                    <tr>
+                        <td>
+                            <form action="score" method="post">
+                                <input type="hidden" name="choice" value="<?= $key ?>">
+                                <button class="score-button" type="submit" name="button"><?= $key ?></button>
+                            </form>
+                        </td>
+                        <td>
+                            <form class="" action="score" method="post">
+                                <input type="hidden" name="choice" value="pass <?= $key ?>">
+                                <button class="score-button" type="submit" name="button">Pass</button>
+                            </form>
+                        </td>
 
-        </table>
+                        <?php foreach ($players as $k => $v) {?>
+                            <td>
+                                <?=$v->getScore()[$key]; ?>
+                            </td>
+
+                        <?php } ?>
+                    </tr>
+                <?php } ?>
+
+            </table>
+        </div>
     </div>
 </div>

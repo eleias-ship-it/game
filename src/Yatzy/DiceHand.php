@@ -80,4 +80,11 @@ class DiceHand
     {
         $this->dices[$index]->setSides("selected");
     }
+
+    public function resetDices(): void
+    {
+        foreach ($this->dices as $dice) {
+            $dice->reset();
+        }
+    }
 }
