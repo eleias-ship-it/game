@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Mos\Router;
+namespace elcl20\Router;
 
 use elcl20\Dice\Game;
 

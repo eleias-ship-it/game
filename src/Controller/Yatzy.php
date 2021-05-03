@@ -1,0 +1,33 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Mos\Controller;
+
+use Nyholm\Psr7\Factory\Psr17Factory;
+use Psr\Http\Message\ResponseInterface;
+use elcl20\Yatzy\Game;
+
+use function Mos\Functions\renderView;
+
+/**
+ * Controller for the index route.
+ */
+class Yatzy
+{
+    public function __invoke(): ResponseInterface
+    {
+        $psr17Factory = new Psr17Factory();
+
+        $data = [
+            "header" => "Yatzy page",
+            "message" => "Hello, this is the Yatzy page, rendered as a Index."
+        ];
+
+        $body = renderView("layout/yatzy.php", $data);
+
+        return $psr17Factory
+            ->createResponse(200)
+            ->withBody($psr17Factory->createStream($body));
+    }
+}

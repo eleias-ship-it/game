@@ -60,13 +60,18 @@ class Game
         $this->data["endScreen"] = "hidden";
     }
 
-    public function renderGame(): void
+    public function gameBody(): array
     {
         $this->data["header"] = "Dice page";
         $this->data["message"] = "play dice game";
         $header = $header ?? null;
         $message = $message ?? null;
 
+        return $this->data;
+    }
+
+    public function renderGame(): void
+    {
         $body = renderView("layout/dice.php", $this->data);
         sendResponse($body);
     }

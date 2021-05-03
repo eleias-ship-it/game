@@ -1,5 +1,25 @@
+ ------ ---------------------------------------- 
+ [32m Line [39m [32m config\router.php                      [39m 
+ ------ ---------------------------------------- 
+  13     Variable $router might not be defined.  
+  18     Variable $router might not be defined.  
+  19     Variable $router might not be defined.  
+  20     Variable $router might not be defined.  
+  22     Variable $router might not be defined.  
+  27     Variable $router might not be defined.  
+  36     Variable $router might not be defined.  
+  37     Variable $router might not be defined.  
+  40     Variable $router might not be defined.  
+  43     Variable $router might not be defined.  
+  46     Variable $router might not be defined.  
+  55     Variable $router might not be defined.  
+  56     Variable $router might not be defined.  
+  57     Variable $router might not be defined.  
+  58     Variable $router might not be defined.  
+  59     Variable $router might not be defined.  
+ ------ ---------------------------------------- 
 
-[30;42m                                                                                                                        [39;49m
-[30;42m [OK] No errors                                                                                                         [39;49m
-[30;42m                                                                                                                        [39;49m
+[37;41m                                                                                                                        [39;49m
+[37;41m [ERROR] Found 16 errors                                                                                                [39;49m
+[37;41m                                                                                                                        [39;49m
 

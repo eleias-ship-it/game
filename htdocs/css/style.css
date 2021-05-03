@@ -30,8 +30,8 @@ footer {
 .dice {
     position: relative;
     border: 2px solid #333;
-    width: 100px;
-    height: 100px;
+    width: 60px;
+    height: 60px;
     border-radius: 8px;
 }
 
@@ -137,12 +137,21 @@ footer {
     grid-row: 3/3;
 }
 
+
+
+/* ----------------------------------------------------------- */
+/* ----------------------------------------------------------- */
+/* --------------------    Dices graphics   ------------------ */
+/* ----------------------------------------------------------- */
+/* ----------------------------------------------------------- */
+
 .dice-area {
     display: flex;
     gap: 1em;
     margin: auto;
-    align-items: center;
+    align-items:baseline;
     justify-content: center;
+    flex-direction: column;
 }
 
 .hidden {
@@ -188,4 +197,126 @@ footer {
     flex-wrap: wrap;
     max-width: 12em;
     margin-left: auto;
+}
+
+
+/* ------------------------------------------------------ */
+/* ------------------------------------------------------ */
+/* ----------------------  form-yatzy ------------------- */
+/* ------------------------------------------------------ */
+/* ------------------------------------------------------ */
+
+.form-yatzy {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.button {
+    width: 8em;
+    font-size: 1.3em;
+    background-color: red;
+    color: white;
+    border: 3px solid red;
+    border-radius: 3px;
+}
+
+.button:hover {
+    background-color: #ff5b5b;
+}
+
+/* TAbles */
+td {
+    background-color: #fff;
+}
+
+.table, .balance {
+    margin: auto;
+    padding: 1em;
+}
+
+table th {
+    padding: 0.5em;
+}
+
+.table {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table td, .table th {
+    border: 1px solid #ddd;
+    padding: 4px;
+}
+
+.table tr:nth-child(even) {
+    background-color: #00adaa;
+}
+
+.table tr:hover {
+    background-color: #00adaa;
+}
+
+.table th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-right: 1px;
+  padding-left: 1px;
+  text-align: center;
+  background-color: #00adaa;
+  color: black;
+}
+
+.table-container {
+    width: 60%;
+}
+
+.graph-dices {
+    display: flex;
+    gap: 1em;
+    flex-direction: row;
+}
+
+.selected {
+    border: 2px solid red;
+    border-radius: 10px;
+}
+
+.dice-button {
+    background-color: white;
+    border: none;
+    padding: 0;
+}
+
+.score-button {
+    width: 100%;
+    background-color: #ff5b5b;
+    border-radius: 4px;
+    color: white;
+    border: 2px solid #ff5b5b;
+    /* font-size: 1em; */
+}
+
+.score-button:hover {
+    background-color: red;
+    color: white;
+    border: 2px solid red;
+}
+
+.game {
+    display: flex;
+}
+
+.dice-area-yatzy {
+    display: flex;
+    gap: 5em;
+    margin: auto;
+    align-items:baseline;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em;
 }
