@@ -29,7 +29,7 @@ class Game
     private array $data;
     private int $throwsThisRound = 0;
     private int $maxGameRounds = 0;
-    private int $roundCounter = 59;
+    private int $roundCounter = 1;
     private bool $gameOver = false;
 
     public function __construct(string $players, string $bots)
@@ -48,8 +48,10 @@ class Game
         $this->data = [
             "header" => "Yatzy page",
             "message" => "Hello, this is the Yatzyplay page.",
-            "players" => $this->getPlayers()
+            "players" => $this->getPlayers(),
+            "throw" => "button"
         ];
+
     }
 
     public function getPlayers(): array
@@ -59,6 +61,7 @@ class Game
 
     public function newRound(): void
     {
+        $this->data["throw"] = "button";
 
         if ($this->roundCounter == $this->maxGameRounds) {
             $this->gameOver();
@@ -94,6 +97,8 @@ class Game
 
     public function throw(): void
     {
+        $this->data["throw"] = "submit";
+
         // quick fix to get the dices to be thrown->
         $allDices = [0, 1, 2, 3, 4];
 

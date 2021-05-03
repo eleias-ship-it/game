@@ -7,7 +7,7 @@
 declare(strict_types=1);
 
 // var_dump($gameData);
-var_dump($playerSettings);
+// var_dump($playerSettings);
 ?>
 <div class="container">
     <div class="header-game">
@@ -52,13 +52,13 @@ var_dump($playerSettings);
                         <td>
                             <form action="score" method="post">
                                 <input type="hidden" name="choice" value="<?= $key ?>">
-                                <button class="score-button" type="submit" name="button"><?= $key ?></button>
+                                <button class="score-button" type="<?= $throw ?>" name="button"><?= $key ?></button>
                             </form>
                         </td>
                         <td>
                             <form class="" action="score" method="post">
                                 <input type="hidden" name="choice" value="pass <?= $key ?>">
-                                <button class="score-button" type="submit" name="button">Pass</button>
+                                <button class="score-button" type="<?= $throw ?>" name="button">Pass</button>
                             </form>
                         </td>
 

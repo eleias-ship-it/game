@@ -7,7 +7,7 @@
 declare(strict_types=1);
 
 // var_dump($gameData);
-var_dump($finalScore);
+// var_dump($finalScore);
 ?>
 <div class="container">
     <div class="header-game">
