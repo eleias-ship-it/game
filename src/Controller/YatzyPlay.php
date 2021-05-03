@@ -19,13 +19,7 @@ class YatzyPlay
     {
         $psr17Factory = new Psr17Factory();
 
-        // isset($_SESSION["yatzy"]) ? $_SESSION["yatzy"]->throw() : $_SESSION["yatzy"] = new Game($_POST["players"], $_POST["bots"]);
-
-        if (isset($_SESSION["yatzy"]) == 1) {
-            $_SESSION["yatzy"]->throw();
-        } else {
-            $_SESSION["yatzy"] = new Game($_POST["players"], $_POST["bots"]);
-        }
+        isset($_SESSION["yatzy"]) ? $_SESSION["yatzy"]->throw() : $_SESSION["yatzy"] = new Game($_POST["players"], $_POST["bots"]);
 
         $data = $_SESSION["yatzy"]->getRenderData();
 

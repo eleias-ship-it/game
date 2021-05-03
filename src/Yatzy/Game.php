@@ -51,7 +51,6 @@ class Game
             "players" => $this->getPlayers(),
             "throw" => "button"
         ];
-
     }
 
     public function getPlayers(): array
@@ -70,11 +69,14 @@ class Game
         foreach ($this->players as $player) {
             $player->resetSaves();
         }
-        if ($this->currentPlayer == count($this->players) - 1) {
-            $this->currentPlayer = 0;
-        } else {
-            $this->currentPlayer += 1;
-        }
+
+        $this->currentPlayer == count($this->players) - 1 ? $this->currentPlayer = 0 : $this->currentPlayer += 1;
+
+        // if ($this->currentPlayer == count($this->players) - 1) {
+        //     $this->currentPlayer = 0;
+        // } else {
+        //     $this->currentPlayer += 1;
+        // }
 
         $this->roundCounter += 1;
         $this->throwsThisRound = 0;
@@ -147,7 +149,7 @@ class Game
     public function getPlayerData(): void
     {
         $playerData = [];
-        foreach ($this->players as $key => $value) {
+        foreach ($this->players as $value) {
             $playerData[$value->getName()] = $value->getSettings();
         }
     }
@@ -207,17 +209,11 @@ class Game
                 $score = $this->fullHouse($rollsHistogram);
                 break;
             default:
-                // strike a score row.
-                if (substr($choice, 0, 4) == "pass") {
-                    $choice = explode(" ", $choice);
-                    $this->players[$this->currentPlayer]->setScore($score, $choice[1]);
-                    $this->newRound();
-                    return 1;
-                }
-
-                break;
+                $choice = explode(" ", $choice);
+                $this->players[$this->currentPlayer]->setScore($score, $choice[1]);
+                $this->newRound();
+                return 1;
         }
-
 
         // add $score to gamestats
         if ($score == 0) {
@@ -241,12 +237,11 @@ class Game
         $finalScore = [];
 
         foreach ($this->players as $player) {
-
             $playerScore = $player->getScore();
             $score = 0;
 
             foreach ($playerScore as $v) {
-                $score += (integer)$v;
+                $score += (int)$v;
             }
 
             $finalScore[$player->getName()] = $score;

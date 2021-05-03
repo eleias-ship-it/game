@@ -12,7 +12,6 @@ use elcl20\Yatzy\Dice;
 class DiceHand
 {
     private array $dices = [];
-    private int $sum;
     private int $nrDices = 0;
 
     public function roll(): void

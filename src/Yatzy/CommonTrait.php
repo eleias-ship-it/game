@@ -82,7 +82,7 @@ trait CommonTrait
             "5" => 0,
             "6" => 0
         ];
-        foreach ($array as $key => $value) {
+        foreach ($array as $value) {
             $histArray[$value] += 1;
         }
 
@@ -98,7 +98,7 @@ trait CommonTrait
     {
         $score = 0;
         foreach ($histogram as $key => $value) {
-            if ($value == 5 ) {
+            if ($value == 5) {
                 $score = $value * $key;
             }
         }
@@ -171,7 +171,7 @@ trait CommonTrait
         $score = 0;
         foreach ($rollsHistogram as $key => $value) {
             if ($value >= 4) {
-                $score = (integer)$key * 4;
+                $score = (int)$key * 4;
             }
         }
         return $score;
@@ -180,7 +180,8 @@ trait CommonTrait
     public function smallLadder($rollsHistogram): int
     {
         $score = 0;
-        if ($rollsHistogram[1] == 1
+        if (
+            $rollsHistogram[1] == 1
             && $rollsHistogram[2] == 1
             && $rollsHistogram[3] == 1
             && $rollsHistogram[4] == 1
@@ -195,7 +196,8 @@ trait CommonTrait
     {
         // var_dump($rollsHistogram);
         $score = 0;
-        if ($rollsHistogram[2] == 1
+        if (
+            $rollsHistogram[2] == 1
             && $rollsHistogram[3] == 1
             && $rollsHistogram[4] == 1
             && $rollsHistogram[5] == 1

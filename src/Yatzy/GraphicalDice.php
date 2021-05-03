@@ -24,6 +24,7 @@ class GraphicalDice extends Dice
 
     private array $sides;
     private $status = "";
+    private int $roll = 1;
 
     public function __construct()
     {
